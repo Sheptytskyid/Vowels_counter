@@ -1,18 +1,27 @@
-package processors;
+package com.myproject.processors;
 
-import io.FileIo;
-import model.Word;
+import com.myproject.io.FileIo;
+import com.myproject.model.Word;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class WordProcessor implements Processor<Word> {
 
-    private FileIo fileIo = new FileIo();
     private String regexp = "[^a-zA-Z ]";
     private String consonants = "[^aeiou]";
+
+    private FileIo fileIo;
+
+    @Autowired
+    public WordProcessor(FileIo fileIo) {
+        this.fileIo = fileIo;
+    }
 
     @Override
     public List<Word> processInputFromIoSource() {

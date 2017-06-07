@@ -1,8 +1,10 @@
-package output;
+package com.myproject.output;
 
+import com.myproject.io.FileIo;
+import com.myproject.model.Word;
 import com.sun.deploy.util.StringUtils;
-import io.FileIo;
-import model.Word;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,9 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OutputGeneratorImpl implements OutputGenerator<Word> {
+@Component
+public class WordOutputGenerator implements OutputGenerator<Word> {
 
-    private FileIo fileIo = new FileIo();
+    private FileIo fileIo;
+
+    @Autowired
+    public WordOutputGenerator(FileIo fileIo) {
+        this.fileIo = fileIo;
+    }
 
     @Override
     public void printOutput(List<Word> input) {

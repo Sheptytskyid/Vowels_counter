@@ -1,4 +1,4 @@
-package output;
+package com.myproject.output;
 
 import java.util.List;
 

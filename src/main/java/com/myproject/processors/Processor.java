@@ -1,4 +1,4 @@
-package processors;
+package com.myproject.processors;
 
 import java.util.List;
 

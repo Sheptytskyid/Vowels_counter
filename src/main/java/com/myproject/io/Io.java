@@ -1,4 +1,4 @@
-package io;
+package com.myproject.io;
 
 public interface Io {
 
