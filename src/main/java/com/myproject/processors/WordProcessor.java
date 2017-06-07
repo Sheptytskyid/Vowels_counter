@@ -2,6 +2,7 @@ package com.myproject.processors;
 
 import com.myproject.io.FileIo;
 import com.myproject.model.Word;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,8 @@ public class WordProcessor implements Processor<Word> {
     private String consonants = "[^aeiou]";
 
     private FileIo fileIo;
+    private org.slf4j.Logger log = LoggerFactory.getLogger(WordProcessor.class);
+
 
     @Autowired
     public WordProcessor(FileIo fileIo) {
@@ -25,6 +28,7 @@ public class WordProcessor implements Processor<Word> {
 
     @Override
     public List<Word> processInputFromIoSource() {
+        log.info("Processing input from IO source");
         String input = fileIo.read();
         return Arrays.stream(input.replaceAll(regexp, "").toLowerCase().split("\\s+"))
                     .map(this::convertInputToWordObject)

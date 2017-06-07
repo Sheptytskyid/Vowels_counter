@@ -3,6 +3,7 @@ package com.myproject.output;
 import com.myproject.io.FileIo;
 import com.myproject.model.Word;
 import com.sun.deploy.util.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class WordOutputGenerator implements OutputGenerator<Word> {
 
     private FileIo fileIo;
+    private org.slf4j.Logger log = LoggerFactory.getLogger(WordOutputGenerator.class);
 
     @Autowired
     public WordOutputGenerator(FileIo fileIo) {
@@ -24,17 +26,19 @@ public class WordOutputGenerator implements OutputGenerator<Word> {
 
     @Override
     public void printOutput(List<Word> input) {
+        log.info("Generating output from list of objects");
         Map<Word, List<Integer>> groupedVowels = prepareOutput(input);
         StringBuilder output = new StringBuilder();
         for (Word word : groupedVowels.keySet()) {
             Double rate = groupedVowels.get(word).stream().mapToInt(val -> val).sum() * 1d / groupedVowels.get(word).size();
-            output.append(String.format("({%s}, %d) -> %f%n",
+            output.append(String.format("({%s}, %d) -> %.1f%n",
                 StringUtils.join(word.getVowels(), ", "), word.getNumberOfLetters(), rate));
         }
         fileIo.write(output.toString());
     }
 
     private Map<Word, List<Integer>> prepareOutput(List<Word> input) {
+        log.info("Preparing output");
         Map<Word, List<Integer>> groupedVowels = new LinkedHashMap<>();
         List<Integer> totalNumberOfVowels;
         for (Word word : input) {
@@ -50,6 +54,7 @@ public class WordOutputGenerator implements OutputGenerator<Word> {
     }
 
     private Map<Word, List<Integer>> sortMapBeforeOutput(Map<Word, List<Integer>> map) {
+        log.info("Sorting output");
         return map.entrySet()
             .stream()
             .sorted(Map.Entry.<Word, List<Integer>>comparingByKey().reversed())
