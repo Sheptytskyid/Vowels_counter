@@ -29,7 +29,7 @@ public class FileIo implements Io {
                 fileContent.append(reader.readLine());
             }
         } catch (IOException exception) {
-            log.error("Error reading from file" + exception.getMessage());
+            log.error(String.format("Error reading from file - %s", exception.getMessage()), exception);
         }
         log.info("Input successfully read");
         return fileContent.toString();
@@ -42,7 +42,7 @@ public class FileIo implements Io {
             writer.write(input + "\r\n" );
             writer.flush();
         } catch (IOException exception) {
-            log.error("Error writing to file" + exception.getMessage());
+            log.error(String.format("Error writing to file - %s", exception.getMessage()), exception);
         }
         log.info("Output saved to file");
     }
