@@ -177,7 +177,7 @@ Icon
 
 *.tmp
 
-# Word temporary
+# scratch.Word temporary
 ~$*.doc*
 
 # Excel temporary

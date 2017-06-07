@@ -1,12 +1,15 @@
+import model.Word;
+import output.OutputGeneratorImpl;
+import processors.WordProcessor;
+
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        FileProcessor fileProcessor = new FileProcessor();
-        OutputGenerator outputGenerator = new OutputGenerator();
-        Map<Integer, List<Word>> words = fileProcessor.readWordsFromFile("INPUT.TXT");
-        outputGenerator.generateOutput(words);
+        WordProcessor processor = new WordProcessor();
+        OutputGeneratorImpl generator = new OutputGeneratorImpl();
+        List<Word> words = processor.processInputFromIoSource();
+        generator.printOutput(words);
     }
 }
