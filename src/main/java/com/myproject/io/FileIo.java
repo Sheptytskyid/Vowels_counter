@@ -1,7 +1,6 @@
 package com.myproject.io;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -12,10 +11,8 @@ import java.io.IOException;
 
 @Component
 public class FileIo implements Io {
-    @Value("${input.file.name}")
-    private String INPUT_FILE;
-    @Value("${output.file.name}")
-    private String OUTPUT_FILE;
+    private static final String INPUT_FILE = "INPUT.TXT";
+    private static final String OUTPUT_FILE = "OUTPUT.TXT";
 
     private org.slf4j.Logger log = LoggerFactory.getLogger(FileIo.class);
 
