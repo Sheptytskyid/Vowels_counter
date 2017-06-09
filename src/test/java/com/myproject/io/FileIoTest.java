@@ -25,6 +25,7 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FileIo.class)
 public class FileIoTest {
+
     @Mock
     private BufferedWriter writerMock;
     @Mock
@@ -40,8 +41,10 @@ public class FileIoTest {
     public void setUp() throws Exception {
         whenNew(BufferedReader.class).withArguments(Matchers.any()).thenReturn(readerMock);
         whenNew(BufferedWriter.class).withArguments(Matchers.any()).thenReturn(writerMock);
-        whenNew(FileInputStream.class).withParameterTypes(String.class).withArguments(Matchers.any()).thenReturn(inputStreamMock);
-        whenNew(FileOutputStream.class).withParameterTypes(String.class).withArguments(Matchers.any()).thenReturn(outputStreamMock);
+        whenNew(FileInputStream.class).withParameterTypes(String.class).withArguments(Matchers.any())
+            .thenReturn(inputStreamMock);
+        whenNew(FileOutputStream.class).withParameterTypes(String.class).withArguments(Matchers.any())
+            .thenReturn(outputStreamMock);
     }
 
     @Test
