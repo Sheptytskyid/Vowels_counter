@@ -2,6 +2,6 @@ package com.myproject.io;
 
 public interface Io {
 
-    public String read();
-    public void write(String input);
+    String read();
+    void write(String output);
 }

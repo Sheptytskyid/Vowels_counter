@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -16,6 +16,7 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import static com.myproject.TestDataProvider.TEST_STRING;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -24,18 +25,19 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FileIo.class)
 public class FileIoTest {
-
+    @Mock
+    private BufferedWriter writerMock;
+    @Mock
+    private BufferedReader readerMock;
+    @Mock
+    private FileInputStream inputStreamMock;
+    @Mock
+    private FileOutputStream outputStreamMock;
     @InjectMocks
     private FileIo fileIo;
-    private BufferedWriter writerMock = PowerMockito.mock(BufferedWriter.class);
-    private BufferedReader readerMock = PowerMockito.mock(BufferedReader.class);
-    private FileInputStream inputStreamMock = PowerMockito.mock(FileInputStream.class);
-    private FileOutputStream outputStreamMock = PowerMockito.mock(FileOutputStream.class);
-    private static final String TEST_STRING = "Platon,, made bamboo boats mademe mado.";
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
         whenNew(BufferedReader.class).withArguments(Matchers.any()).thenReturn(readerMock);
         whenNew(BufferedWriter.class).withArguments(Matchers.any()).thenReturn(writerMock);
         whenNew(FileInputStream.class).withParameterTypes(String.class).withArguments(Matchers.any()).thenReturn(inputStreamMock);

@@ -16,7 +16,6 @@ public class FileIo implements Io {
 
     private org.slf4j.Logger log = LoggerFactory.getLogger(FileIo.class);
 
-
     @Override
     public String read() {
         log.info("Reading input prom file");
@@ -33,10 +32,10 @@ public class FileIo implements Io {
     }
 
     @Override
-    public void write(String input) {
+    public void write(String output) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE))) {
             log.info("Writing output to file");
-            writer.write(input + "\r\n" );
+            writer.write(output + "\r\n");
             writer.flush();
         } catch (IOException exception) {
             log.error(String.format("Error writing to file - %s", exception.getMessage()), exception);

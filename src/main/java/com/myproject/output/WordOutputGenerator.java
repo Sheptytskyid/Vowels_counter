@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class WordOutputGenerator implements OutputGenerator<Word> {
-
     private FileIo fileIo;
     private org.slf4j.Logger log = LoggerFactory.getLogger(WordOutputGenerator.class);
 
@@ -30,7 +29,11 @@ public class WordOutputGenerator implements OutputGenerator<Word> {
         Map<Word, List<Integer>> groupedVowels = prepareOutput(input);
         StringBuilder output = new StringBuilder();
         for (Word word : groupedVowels.keySet()) {
-            Double rate = groupedVowels.get(word).stream().mapToInt(val -> val).sum() * 1d / groupedVowels.get(word).size();
+            Double totalNumberOfSameVowels = groupedVowels.get(word).stream()
+                .mapToDouble(Integer::doubleValue)
+                .sum();
+            Integer totalNumberOfWordsWithSameVowels = groupedVowels.get(word).size();
+            Double rate = totalNumberOfSameVowels / totalNumberOfWordsWithSameVowels;
             output.append(String.format("({%s}, %d) -> %.1f%n",
                 StringUtils.join(word.getVowels(), ", "), word.getNumberOfLetters(), rate));
         }

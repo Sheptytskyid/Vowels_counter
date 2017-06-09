@@ -1,36 +1,18 @@
 package com.myproject.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Word implements Comparable<Word> {
-
     private Set<String> vowels;
     private int numberOfLetters;
     private int numberOfVowels;
-
-    public Set<String> getVowels() {
-        return vowels;
-    }
-
-    public void setVowels(Set<String> vowels) {
-        this.vowels = vowels;
-    }
-
-    public int getNumberOfLetters() {
-        return numberOfLetters;
-    }
-
-    public void setNumberOfLetters(int numberOfLetters) {
-        this.numberOfLetters = numberOfLetters;
-    }
-
-    public int getNumberOfVowels() {
-        return numberOfVowels;
-    }
-
-    public void setNumberOfVowels(int numberOfVowels) {
-        this.numberOfVowels = numberOfVowels;
-    }
 
     @Override
     public boolean equals(Object o) {

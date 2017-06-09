@@ -13,13 +13,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class WordProcessor implements Processor<Word> {
-
     private String regexp = "[^a-zA-Z ]";
-    private String consonants = "[^aeiou]";
+    private String consonants = "[^aeiouy]";
 
     private FileIo fileIo;
     private org.slf4j.Logger log = LoggerFactory.getLogger(WordProcessor.class);
-
 
     @Autowired
     public WordProcessor(FileIo fileIo) {
@@ -27,12 +25,12 @@ public class WordProcessor implements Processor<Word> {
     }
 
     @Override
-    public List<Word> processInputFromIoSource() {
+    public List<Word> convertStringIntoListOfElements() {
         log.info("Processing input from IO source");
         String input = fileIo.read();
         return Arrays.stream(input.replaceAll(regexp, "").toLowerCase().split("\\s+"))
-                    .map(this::convertInputToWordObject)
-                    .collect(Collectors.toList());
+            .map(this::convertInputToWordObject)
+            .collect(Collectors.toList());
     }
 
     private Word convertInputToWordObject(String inputWord) {

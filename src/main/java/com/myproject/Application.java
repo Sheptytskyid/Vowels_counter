@@ -12,7 +12,6 @@ import java.util.List;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-
     private Processor<Word> processor;
     private OutputGenerator<Word> generator;
 
@@ -28,7 +27,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        List<Word> words = processor.processInputFromIoSource();
+        List<Word> words = processor.convertStringIntoListOfElements();
         generator.printOutput(words);
     }
 }
